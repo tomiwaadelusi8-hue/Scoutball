@@ -1,51 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-<title>ScoutBall</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScoutBall</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #1e90ff;
+            color: white;
+            padding: 20px 10px;
+        }
+
+        header nav {
+            margin-top: 10px;
+        }
+
+        header nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1,
+        h2 {
+            margin: 0.5em 0 0.2em 0;
+        }
+
+        /* Feed & Video Cards */
+        .feed,
+        .upload-section,
+        .welcome-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 10px;
+        }
+
+        .video-card {
+            background: #f2f2f2;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .video-card h3 {
+            margin: 10px 0 5px 0;
+        }
+
+        .video-card button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .like-btn {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        .like-btn:hover {
+            background-color: #e84118;
+        }
+
+        .download-btn {
+            background-color: #1e90ff;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background-color: #0b60c1;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Upload Section */
+        .upload-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            background: #f2f2f2;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-section input[type="file"] {
+            margin: 10px 0;
+        }
+
+        .upload-section button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .welcome-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            color: white;
+        }
+
+        .welcome-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .welcome-container button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .signup-btn {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        .signup-btn:hover {
+            background-color: #e84118;
+        }
+
+        .google-btn {
+            background-color: #4285f4;
+            color: white;
+        }
+
+        .google-btn:hover {
+            background-color: #3367d6;
+        }
+
+        #preview {
+            margin-top: 20px;
+            display: none;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 500px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 0.9em;
+            }
+
+            header nav a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="welcome-container">
+            <h1>⚽ ScoutBall</h1>
+            <p>Create your account or sign in</p>
 
-<header>
+            <!-- Identity Creation Form -->
+            <form id="signupForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="signup-btn">Create Account</button>
+            </form>
 
-<h1>⚽ ScoutBall</h1>
-<p>Discover the next generation of soccer talent</p>
+            <p>or</p>
 
-<nav>
+            <!-- Google Sign-In Button -->
+            <button class="google-btn" id="googleSignIn">Sign in with Google</button>
+        </div>
+    </section>
 
-<a href="index.html">Home</a>
-<a href="upload.html">Upload</a>
-<a href="profile.html">Player</a>
-<a href="blog.html">Daily Life</a>
+    <!-- Header / Navigation -->
+    <header>
+        <h1>⚽ ScoutBall</h1>
+        <p>Discover the next generation of soccer talent</p>
+        <nav>
+            <a href="#feed">Home</a>
+            <a href="#upload-section">Upload</a>
+        </nav>
+    </header>
 
-</nav>
+    <!-- Video Feed Section -->
+    <section class="feed" id="feed">
+        <h2>Video Feed</h2>
 
-</header>
+        <div class="video-card">
+            <video controls>
+                <source src="videos/top-corner-goal.mp4" type="video/mp4">
+            </video>
+            <h3>Top Corner Goal</h3>
+            <p>Player: Tomiwa</p>
+            <button class="like-btn" onclick="like(this)">❤️ Like</button>
+            <span class="likes">0</span>
+            <button class="download-btn" onclick="downloadVideo('videos/top-corner-goal.mp4','top-corner-goal.mp4')">⬇ Download</button>
+        </div>
 
+        <div class="video-card">
+            <video controls>
+                <source src="videos/amazing-dribble.mp4" type="video/mp4">
+            </video>
+            <h3>Amazing Dribble</h3>
+            <p>Player: Sarah</p>
+            <button class="like-btn" onclick="like(this)">❤️ Like</button>
+            <span class="likes">0</span>
+            <button class="download-btn" onclick="downloadVideo('videos/amazing-dribble.mp4','amazing-dribble.mp4')">⬇ Download</button>
+        </div>
+    </section>
 
-<section class="feed">
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload-section">
+        <h2>Upload Your Video</h2>
+        <form id="uploadForm">
+            <input type="file" id="videoFile" accept="video/*">
+            <button type="submit">Upload</button>
+        </form>
+        <video id="preview" controls></video>
+    </section>
 
-<div class="video-card">
+    <script>
+        // Like button functionality
+        function like(btn) {
+            const likesSpan = btn.nextElementSibling;
+            let count = parseInt(likesSpan.textContent);
+            likesSpan.textContent = count + 1;
+        }
 
-<video controls width="400">
-<source src="">
-</video>
+        // Download button functionality
+        function downloadVideo(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+        }
 
-<h3>Top Corner Goal</h3>
-<p>Player: Tomiwa</p>
+        // Placeholder signup form
+        const signupForm = document.getElementById('signupForm');
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            alert(`Account created!\nUsername: ${username}\nEmail: ${email}`);
+            signupForm.reset();
+        });
 
-<button onclick="like()">❤️ Like</button>
+        // Placeholder Google Sign-In
+        document.getElementById('googleSignIn').addEventListener('click', () => {
+            alert('Google Sign-In clicked (requires Firebase/Google OAuth integration)');
+        });
 
-<span id="likes">0</span>
+        // Upload preview & add to feed dynamically
+        const form = document.getElementById('uploadForm');
+        const videoInput = document.getElementById('videoFile');
+        const preview = document.getElementById('preview');
 
-</div>
+        videoInput.addEventListener('change', () => {
+            const file = videoInput.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        });
 
-</section>
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const file = videoInput.files[0];
+            if (!file) {
+                alert('Please select a video first!');
+                return;
+            }
 
-<script src="script.js"></script>
+            const feed = document.getElementById('feed');
+            const newCard = document.createElement('div');
+            newCard.classList.add('video-card');
+            newCard.innerHTML = `
+                <video controls>
+                    <source src="${preview.src}" type="video/mp4">
+                </video>
+                <h3>New Upload</h3>
+                <p>Player: You</p>
+                <button class="like-btn" onclick="like(this)">❤️ Like</button>
+                <span class="likes">0</span>
+                <button class="download-btn" onclick="downloadVideo('${preview.src}','new-upload.mp4')">⬇ Download</button>
+            `;
+            feed.prepend(newCard);
 
+            form.reset();
+            preview.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>
